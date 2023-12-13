@@ -9,7 +9,7 @@ function ResizablePanes({ direction }) {
 
   return (
     <div
-      className={`w-screen h-screen flex  ${
+      className={`w-screen h-screen flex ${
         isVertical ? "flex-col" : "flex-row"
       }`}
     >
@@ -18,24 +18,34 @@ function ResizablePanes({ direction }) {
         initialSize={200}
         maxSize={300}
         isVertical={isVertical}
+        bgColor={"bg-red-400"}
       />
       <ResizablePane
         minSize={150}
         initialSize={300}
         grow='true'
         isVertical={isVertical}
+        bgColor={"bg-yellow-400"}
       />
       <ResizablePane
         minSize={150}
         initialSize={150}
         maxSize={300}
         isVertical={isVertical}
+        bgColor={"bg-emerald-400"}
       />
     </div>
   );
 }
 
-function ResizablePane({ minSize, initialSize, maxSize, grow, isVertical }) {
+function ResizablePane({
+  minSize,
+  initialSize,
+  maxSize,
+  grow,
+  isVertical,
+  bgColor,
+}) {
   const [size, setSize] = useState(initialSize);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -63,11 +73,10 @@ function ResizablePane({ minSize, initialSize, maxSize, grow, isVertical }) {
   }, [size, isResizing, minSize, maxSize, isVertical]);
 
   const handleMouseDown = () => setIsResizing(true);
+
   return (
     <div
-      className={`relative bg-red-300 outline ${
-        grow ? "grow" : ""
-      } shrink-0 flex justify-center items-center`}
+      className={`relative ${bgColor} ${grow ? "grow" : ""} shrink-0`}
       style={{ [dimension]: `${size}px` }}
     >
       {!grow && (
